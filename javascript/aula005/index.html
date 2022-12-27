@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operador Aritmético</title>
+</head>
+<body>
+    <script>
+        // + soma
+        // - subtração
+        // * multiplicação
+        // / divisão
+        // % resto da divisão
+        // ** potencia
+
+        // Exemplos: 
+        // 5 + 2 -> 7
+        // 5 - 2 -> 3
+        // 5 * 2 -> 10
+        // 5 / 2 -> 2.5
+        // 5 % 2 -> 1
+        // 5 ** 2 -> 25
+
+        //Q01 COMO GUARDAR UM VALOR DE UM PROMPT NUMA VAR?
+        var nome = window.prompt("Digite seu nome: ")
+        document.write(nome)
+
+        //Q02 COMO FAZER UM NUMERO DIGITADO EM UM PROMPT SER USADO NUM CALCULO?
+        var num1 = Number(window.prompt('Digite o primeiro número: '))
+        var num2 = Number(window.prompt('Digite o segundo número: '))
+        var soma = num1 + num2
+        document.write(`O valor da soma dos dois números é ${soma}`)
+
+        //Q03COMO TRANSFORMAR UM TEXTO TODO EM LETRAS MAIUSCULAS?
+        var upNome = window.prompt('Digite seu nome: ')
+        document.write(`Seu npme em letras maiusculas é ${upNome.toUpperCase()}`)
+        
+        //Q04 COMO MOSTRAR UM NÚMERO FORMATADO COMO UM VALOR MONETÁRIO?
+        var salario = 560.70;
+        var valorFormatado = salario.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        document.write(`O valor do salario é ${valorFormatado}`)
+        
+    </script>
+</body>
+</html>
