@@ -8,10 +8,21 @@ Trilha de estudos de programação do básico ao avançado focado no FrontEnd.
 - [Lógica de Programação](#logica-de-programacao)
 - [HTML](#html)
 - [CSS](#css)
-- [JavaScript](#javascript)
+- [JavaScript](#javascript) 
 - [FrameWorks](#frameworks)
 - [Frameworks Css](#frameworks-css)
 - [Ferramentas](#ferramentas)
 
 ## Lógica de Programação
 
+## JavaScript
+
+- [x] Fundamentos
+- [x] Variáveis e dados
+- [x] Operadores
+- [x] Condições
+- [x] Repetições
+- [x] Arrays
+- [x] Functions
+- [x] DOM
+ 
