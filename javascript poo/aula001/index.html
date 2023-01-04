@@ -27,11 +27,11 @@
 
             <div class="lineInput">
                 <label>Valor</label>
-                <input type="text" name="" id="valor" placeholder="Valor do produto">
+                <input type="number" name="" id="valor" placeholder="Valor do produto">
             </div>
             <h1>CONTROLE DE PRODUTOS</h1>
-            <button onclick="produto.adicionar()">Adicionar</button>
-            <button onclick="produto.excluir()">Excluir</button>
+            <button onclick="produtos.salvar()" id="btn1">Adicionar</button>
+            <button onclick="produtos.cancelar()">Cancelar</button>
         </div>
 
         <div class="content">
@@ -42,12 +42,7 @@
                     <th>VALOR</th>
                     <th>AÇÕES</th>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mesa</td>
-                        <td>900</td>
-                    </tr>
+                <tbody id="tbody">
                 </tbody>
             </table>
         </div>
