@@ -1,7 +1,7 @@
 class Produtos {
     
     constructor(){
-        this.id = 0;
+        this.id = 1;
         this.arrayProdutos = [];
         this.editId = null;
     }
