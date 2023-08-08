@@ -1,0 +1,28 @@
+//Com arrays
+let primeiros = [1, 2, 3];
+//retorna [1, 2, 3]
+
+//Utilizando Spread Operator e juntando com outro array
+let numeros = [...primeiros, 4, 5, 6];
+//retorna [1, 2, 3, 4, 5, 6]
+
+//Sem Spread Operator
+let numeros2 = [primeiros, 4, 5, 6];
+//retorna = [Array(3), 4, 5, 6];
+
+//Com objeto
+
+let pessoa = {
+    nome: "Larissa",
+    idade: 45,
+    cargo: "Programadora Junior"
+}
+
+//Utilizando Spread Operator e juntando com outro objeto
+let novaPessoa = {
+    ...pessoa,
+    cidade: "Juazeiro do Norte",
+    empresa: "Brisanet"
+}
+
+//Retorna {nome: "Larissa", idade: 45, cargo: "Programadora Junior", cidade: "Juazeiro do Norte", empresa: "Brisanet"}
