@@ -4,28 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="./src/index.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Web Component</title>
   </head>
 
   <body>
     <h1>WEB COMPONENT</h1>
 
-    <ion-button label="Primary" type="primary"></ion-button>
-    <ion-button label="Primary" type="primary" disabled="true"></ion-button>
-    <ion-button label="Primary" type="primary" loading="true"></ion-button>
+    <section>
+      <div class="component-apresentation">
+        <div class="component-apresentation__header">
+          <p>Primary Button</p>
+        </div>
 
-    <br />
-    <ion-button label="Secondary" type="secondary"></ion-button>
-    <ion-button label="Secondary" type="secondary" disabled="true"></ion-button>
+        <div class="component-apresentation__body">
+          <ion-button label="Primary" type="primary"></ion-button>
+          <ion-button
+            label="Primary"
+            type="primary"
+            disabled="true"
+          ></ion-button>
+          <ion-button
+            label="Primary"
+            type="primary"
+            loading="true"
+          ></ion-button>
+        </div>
+      </div>
 
-    <br />
-    <ion-button label="Ghost" type="ghost"></ion-button>
-    <ion-button label="Ghost" type="ghost" disabled="true"></ion-button>
+      <div class="component-apresentation">
+        <div class="component-apresentation__header">
+          <p>Secondary Button</p>
+        </div>
+        <div class="component-apresentation__body">
+          <ion-button label="Secondary" type="secondary"></ion-button>
+          <ion-button
+            label="Secondary"
+            type="secondary"
+            disabled="true"
+          ></ion-button>
+          <ion-button
+            label="Secondary"
+            type="secondary"
+            loading="true"
+          ></ion-button>
+        </div>
+      </div>
 
-    <br />
-    <ion-button label="Dashed" type="dashed"></ion-button>
-    <ion-button label="Dashed" type="dashed" disabled="true"></ion-button>
+      <div class="component-apresentation">
+        <div class="component-apresentation__header">
+          <p>Ghost Button</p>
+        </div>
+        <div class="component-apresentation__body">
+          <ion-button label="Ghost" type="ghost"></ion-button>
+          <ion-button label="Ghost" type="ghost" disabled="true"></ion-button>
+          <ion-button label="Ghost" type="ghost" loading="true"></ion-button>
+        </div>
+      </div>
 
-    <counter-component id="myCounter"></counter-component>
+      <div class="component-apresentation">
+        <div class="component-apresentation__header">
+          <p>Dashed Button</p>
+        </div>
+        <div class="component-apresentation__body">
+          <ion-button label="Dashed" type="dashed"></ion-button>
+          <ion-button label="Dashed" type="dashed" disabled="true"></ion-button>
+          <ion-button label="Dashed" type="dashed" loading="true"></ion-button>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
