@@ -1,1 +1,1 @@
-export * from "./components/ion-button.js";
+export * from "./components/button/ion-button.js";

@@ -3,20 +3,8 @@ class IonButton extends HTMLElement {
     return ["label", "type", "disabled", "loading"];
   }
 
-  get loading() {
-    return this._loading;
-  }
-
-  set loading(value) {
-    this._loading = value;
-    this.render();
-  }
-
   constructor() {
     super();
-    this._label = "";
-    this._type = "primary";
-    this._disabled = false;
     this.build();
   }
 
@@ -32,32 +20,45 @@ class IonButton extends HTMLElement {
     `;
   }
 
+  connectedCallback() {
+    this.render();
+    this.button = this.shadowRoot.querySelector("button");
+    this.button.addEventListener("click", this.handleClick.bind(this));
+  }
+
+  handleClick(event) {
+    if (this._loading) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "label") {
-      this._label = newValue;
-    }
-
-    if (name === "type") {
-      this._type = newValue;
-    }
-
-    if (name === "disabled") {
-      this._disabled = newValue;
-    }
-
-    if (name === "loading") {
-      this._loading = newValue;
+    switch (name) {
+      case "label":
+        this._label = newValue;
+        break;
+      case "type":
+        this._type = newValue;
+        break;
+      case "disabled":
+        this._disabled = newValue === "true";
+        break;
+      case "loading":
+        this._loading = newValue === "true";
+        break;
     }
     this.render();
   }
 
   template() {
     const attributeDisabled = this._disabled ? "disabled" : "";
-    const attribute = this._loading ? "loading" : "";
+    const attributeLoading = this._loading ? "loading" : "";
     return `
         <button type="button" class="ion-btn ${
           this._type
-        }" ${attributeDisabled}>
+        } ${attributeLoading}" ${attributeDisabled}
+        >
         ${this._loading ? this.loaderTemplate(this._type) : ""}
         ${this._label}
         </button>
@@ -67,7 +68,7 @@ class IonButton extends HTMLElement {
   loaderTemplate(type) {
     return `
         <div class="loader ${type}"></div>
-    `;
+      `;
   }
 
   css = `
@@ -134,8 +135,8 @@ class IonButton extends HTMLElement {
     }
 
     .loader.secondary {
-        border-top-color: #0858CE;
-      }
+      cursor: not-allowed;
+    }
 
     .ghost {
         color: #0858CE;
@@ -151,6 +152,10 @@ class IonButton extends HTMLElement {
     .ghost:disabled {
         color: #AEB2BD;
         cursor: not-allowed;
+    }
+
+    .loader.ghost {
+      cursor: not-allowed;
     }
 
   
@@ -173,6 +178,10 @@ class IonButton extends HTMLElement {
         background-color: #E4E6EB;
         border: 1px solid #AEB2BD;
         cursor: not-allowed;
+    }
+
+    .ion-btn.loading {
+      cursor: not-allowed;
     }
 
     .loader {
