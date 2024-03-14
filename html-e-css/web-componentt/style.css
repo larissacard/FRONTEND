@@ -3,9 +3,9 @@ body {
 }
 
 section {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-column-gap: 30px;
 }
 
 .component-apresentation{
@@ -22,5 +22,7 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     height: 150px;
+    width: 200px;
 }
