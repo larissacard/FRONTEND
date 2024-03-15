@@ -1,8 +1,25 @@
-import { describe, expect, test } from "@jest/globals";
+// import { describe, expect, test } from "@jest/globals";
+import "@testing-library/jest-dom";
 
 describe("IonButton", () => {
-  test("O componente é renderizado corretamente", () => {
+  let button;
+
+  beforeEach(() => {
+    button = document.createElement("ion-button");
+    document.body.appendChild(button);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(button);
+  });
+
+  test("should be rendered", () => {
+    expect(document.body.contains(button)).toBe(true);
+  });
+
+  test("should render with the correct text", () => {
     const componente = document.getElementsByClassName("ion-btn");
-    expect(componente).not.toBeNull();
+    componente.textContent = "Clique aqui";
+    expect(componente.textContent).toBe("Clique aqui");
   });
 });
