@@ -1,15 +1,17 @@
 class IonButton extends HTMLElement {
   static get observedAttributes() {
-    return ["label", "type", "disabled", "loading"];
+    return ["label", "type", "disabled", "loading", "options"];
   }
 
   constructor() {
     super();
     this.build();
+    this._dropdownVisible = false;
   }
 
   build() {
     const shadow = this.attachShadow({ mode: "open" });
+    this._dropdownVisible = false;
     this.render();
   }
 
@@ -23,6 +25,7 @@ class IonButton extends HTMLElement {
   connectedCallback() {
     this.render();
     this.button = this.shadowRoot.querySelector("button");
+    this.dropdownElement = this.shadowRoot.querySelector("ion-dropdown");
     this.button.addEventListener("click", this.handleClick.bind(this));
   }
 
@@ -30,6 +33,19 @@ class IonButton extends HTMLElement {
     if (this._loading) {
       event.preventDefault();
       event.stopPropagation();
+    }
+
+    if (this._options) {
+      this.toggleDropdown();
+    }
+  }
+
+  toggleDropdown() {
+    this._dropdownVisible = !this._dropdownVisible;
+    if (this._dropdownVisible) {
+      this.dropdownElement.classList.remove("dropdown-hidden");
+    } else {
+      this.dropdownElement.classList.add("dropdown-hidden");
     }
   }
 
@@ -47,6 +63,15 @@ class IonButton extends HTMLElement {
       case "loading":
         this._loading = newValue === "true";
         break;
+      case "options":
+        try {
+          this._options = JSON.parse(newValue);
+          console.log(this._options);
+          this.dropdownElement.setAttribute("options", this._options);
+        } catch (e) {
+          console.error("Error parsing options:", e);
+        }
+        break;
     }
     this.render();
   }
@@ -62,6 +87,7 @@ class IonButton extends HTMLElement {
         ${this._loading ? this.loaderTemplate(this._type) : ""}
         ${this._label}
         </button>
+        ${this._options ? this.dropdownTemplate() : ""}
     `;
   }
 
@@ -69,6 +95,16 @@ class IonButton extends HTMLElement {
     return `
         <div class="loader ${type}"></div>
       `;
+  }
+
+  dropdownTemplate() {
+    if (this._options) {
+      return `
+        <ion-dropdown class="dropdown-hidden" options='${JSON.stringify(
+          this._options
+        )}'></ion-dropdown>
+      `;
+    }
   }
 
   css = `
@@ -198,6 +234,10 @@ class IonButton extends HTMLElement {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }    
+      
+      .dropdown-hidden {
+        display: none;
+      }
     `;
 }
 
