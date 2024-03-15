@@ -20,13 +20,25 @@ export class IonDropdown extends HTMLElement {
     `;
   }
 
+  connectedCallback() {
+    this.render();
+    Array.from(this._options).map((option, index) => {
+      this.shadowRoot
+        .getElementById("item-" + index)
+        .addEventListener(
+          "click",
+          this.optionClicked.bind(this, option, index)
+        );
+    });
+  }
+
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
       case "options":
         this._options = JSON.parse(newValue);
-        this.render();
         break;
     }
+    this.render();
   }
 
   templateDropdown() {
@@ -45,12 +57,12 @@ export class IonDropdown extends HTMLElement {
     }
 
     return Array.from(this._options)
-      .map((option) => {
+      .map((option, index) => {
         return `
-            <div class="dropdown-item">
+            <div class="dropdown-item"  id="item-${index}">
               <div class="container">
                 <div class="option-label">
-                  ${option.label}
+                  ${option.label} 
                 </div>
               </div>
             </div>
@@ -58,6 +70,17 @@ export class IonDropdown extends HTMLElement {
       })
       .join("");
   }
+
+  optionClicked(option, index) {
+    const optionDiv = this.shadowRoot.getElementById("item-" + index);
+    option.selected = !option.selected;
+    if (option.selected) {
+      optionDiv.classList.add("selected");
+    } else {
+      optionDiv.classList.remove("selected");
+    }
+  }
+
   css = `
   .ion-dropdown {
     position: absolute;
@@ -123,6 +146,11 @@ export class IonDropdown extends HTMLElement {
 
     .dropdown-item:hover {
         background-color: #ebf3fe;
+    }
+
+    .dropdown-item.selected {
+      color: #0858ce;
+      background-color: #ebf3fe;
     }
   `;
 }
