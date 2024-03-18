@@ -47,4 +47,17 @@ describe("IonDropdown", () => {
     dropdown.optionClicked(option1, 0);
     expect(option1.selected).toBe(false);
   });
+
+  it("should initialize dropdown when connected to the DOM", () => {
+    dropdown._options = ["option1", "option2", "option3"];
+
+
+    dropdown.connectedCallback();
+
+
+    expect(dropdown.shadowRoot.getElementById("item-0").onclick).toBeDefined();
+    expect(dropdown.shadowRoot.getElementById("item-1").onclick).toBeDefined();
+    expect(dropdown.shadowRoot.getElementById("item-2").onclick).toBeDefined();
+  });
+
 });
