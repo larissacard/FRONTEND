@@ -1,4 +1,4 @@
-class IonButton extends HTMLElement {
+export class IonButton extends HTMLElement {
   static get observedAttributes() {
     return ["label", "type", "disabled", "loading", "options"];
   }
