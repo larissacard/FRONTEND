@@ -18,18 +18,22 @@ export class IonDropdown extends HTMLElement {
         <style>${this.css.trim()}</style>
         ${this.templateDropdown().trim()}
     `;
+
+    this.button = this.shadowRoot.querySelector("ion-button");
   }
 
   connectedCallback() {
     this.render();
-    Array.from(this._options).map((option, index) => {
-      this.shadowRoot
-        .getElementById("item-" + index)
-        .addEventListener(
-          "click",
-          this.optionClicked.bind(this, option, index)
-        );
-    });
+    if (this._options) {
+      Array.from(this._options).map((option, index) => {
+        this.shadowRoot
+          .getElementById("item-" + index)
+          .addEventListener(
+            "click",
+            this.optionClicked.bind(this, option, index)
+          );
+      });
+    }
   }
 
   attributeChangedCallback(name, oldValue, newValue) {

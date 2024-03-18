@@ -66,8 +66,9 @@ export class IonButton extends HTMLElement {
       case "options":
         try {
           this._options = JSON.parse(newValue);
-          console.log(this._options);
-          this.dropdownElement.setAttribute("options", this._options);
+          if (this.dropdownElement) {
+            this.dropdownElement.setAttribute("options", this._options);
+          }
         } catch (e) {
           console.error("Error parsing options:", e);
         }
