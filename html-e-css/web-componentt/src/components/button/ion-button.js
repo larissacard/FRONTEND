@@ -41,6 +41,11 @@ export class IonButton extends HTMLElement {
   }
 
   toggleDropdown() {
+    if (!this.dropdownElement) {
+      console.error("dropdownElement is null");
+      return;
+    }
+
     this._dropdownVisible = !this._dropdownVisible;
     if (this._dropdownVisible) {
       this.dropdownElement.classList.remove("dropdown-hidden");
@@ -67,7 +72,10 @@ export class IonButton extends HTMLElement {
         try {
           this._options = JSON.parse(newValue);
           if (this.dropdownElement) {
-            this.dropdownElement.setAttribute("options", this._options);
+            this.dropdownElement.setAttribute(
+              "options",
+              JSON.stringify(this._options)
+            );
           }
         } catch (e) {
           console.error("Error parsing options:", e);

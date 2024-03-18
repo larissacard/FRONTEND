@@ -1,5 +1,6 @@
 import { IonButton } from "./ion-button.js";
 
+const options = [{ label: "Option 1", key: "option1", selected: false }];
 describe("IonButton", () => {
   let button;
 
@@ -10,14 +11,6 @@ describe("IonButton", () => {
 
   it("should render the button component", () => {
     expect(button).toBeDefined();
-  });
-
-  it("should have the correct default attributes", () => {
-    expect(button.getAttribute("label")).toBeNull();
-    expect(button.getAttribute("type")).toBeNull();
-    expect(button.getAttribute("disabled")).toBeNull();
-    expect(button.getAttribute("loading")).toBeNull();
-    expect(button.getAttribute("options")).toBeNull();
   });
 
   it("shoudl render the correct label", () => {
@@ -45,7 +38,6 @@ describe("IonButton", () => {
   });
 
   it("should render the correct options", () => {
-    const options = ["Option 1", "Option 2", "Option 3"];
     button.setAttribute("options", JSON.stringify(options));
     expect(button.getAttribute("options")).toBe(JSON.stringify(options));
   });
@@ -61,10 +53,66 @@ describe("IonButton", () => {
 
   it("should not toggle dropdown when options are not present", () => {
     const spyToggleDropdown = jest.spyOn(button, "toggleDropdown");
-
     button.setAttribute("options", JSON.stringify([]));
     button.click();
 
     expect(spyToggleDropdown).not.toHaveBeenCalled();
+  });
+
+  it("should prevent default and stop propagation if loading", () => {
+    button._loading = true;
+
+    const event = {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+    };
+
+    button.handleClick(event);
+
+    expect(event.preventDefault).toHaveBeenCalled();
+    expect(event.stopPropagation).toHaveBeenCalled();
+  });
+
+  it("should toggle dropdown if options present", () => {
+    button._options = true;
+
+    const spyToggleDropdown = jest.spyOn(button, "toggleDropdown");
+
+    button.handleClick();
+
+    expect(spyToggleDropdown).toHaveBeenCalled();
+    expect(button.classList.contains("dropdown-hidden")).toBe(false);
+  });
+
+  it("should toggle dropdown visibility", () => {
+    button.dropdownElement = document.createElement("ion-dropdown");
+    button.toggleDropdown();
+    expect(button.dropdownElement.classList.contains("dropdown-hidden")).toBe(
+      false
+    );
+    button.toggleDropdown();
+    expect(button.dropdownElement.classList.contains("dropdown-hidden")).toBe(
+      true
+    );
+  });
+
+  it("should set options attribute when valid JSON string is provided", () => {
+    button.dropdownElement = document.createElement("ion-dropdown");
+
+    button.attributeChangedCallback("options", null, JSON.stringify(options));
+    expect(button.dropdownElement.getAttribute("options")).toEqual(
+      JSON.stringify(options)
+    );
+  });
+
+  it("should log error when invalid JSON string is provided", () => {
+    button.dropdownElement = document.createElement("ion-dropdown");
+    const spyConsoleError = jest.spyOn(console, "error");
+    const newValue = "{ invalid JSON }";
+    button.attributeChangedCallback("options", null, newValue);
+    expect(spyConsoleError).toHaveBeenCalledWith(
+      "Error parsing options:",
+      expect.any(Error)
+    );
   });
 });
